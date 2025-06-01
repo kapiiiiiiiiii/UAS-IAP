@@ -13,9 +13,13 @@ class Mahasiswa extends CI_Controller
     {
         $data['judul'] = 'Daftar Mahasiswa';
         $data['mahasiswa'] = $this->Mahasiswa_model->getAllMahasiswa();
-        if( $this->input->post('keyword') ) {
+
+        // Pencarian data mahasiswa
+        if ($this->input->post('keyword')) {
             $data['mahasiswa'] = $this->Mahasiswa_model->cariDataMahasiswa();
         }
+
+        // Menampilkan halaman daftar mahasiswa
         $this->load->view('templates/header', $data);
         $this->load->view('mahasiswa/index', $data);
         $this->load->view('templates/footer');
@@ -25,15 +29,18 @@ class Mahasiswa extends CI_Controller
     {
         $data['judul'] = 'Form Tambah Data Mahasiswa';
 
+        // Validasi form
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 
+        // Jika validasi gagal
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('mahasiswa/tambah');
             $this->load->view('templates/footer');
         } else {
+            // Jika validasi sukses, simpan data
             $this->Mahasiswa_model->tambahDataMahasiswa();
             $this->session->set_flashdata('flash', 'Ditambahkan');
             redirect('mahasiswa');
@@ -51,6 +58,7 @@ class Mahasiswa extends CI_Controller
     {
         $data['judul'] = 'Detail Data Mahasiswa';
         $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($id);
+
         $this->load->view('templates/header', $data);
         $this->load->view('mahasiswa/detail', $data);
         $this->load->view('templates/footer');
@@ -60,8 +68,15 @@ class Mahasiswa extends CI_Controller
     {
         $data['judul'] = 'Form Ubah Data Mahasiswa';
         $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaById($id);
-        $data['jurusan'] = ['Teknik Informatika', 'Teknik Mesin', 'Teknik Planologi', 'Teknik Pangan', 'Teknik Lingkungan'];
+        $data['jurusan'] = [
+            'Teknik Informatika', 
+            'Teknik Mesin', 
+            'Teknik Planologi', 
+            'Teknik Pangan', 
+            'Teknik Lingkungan'
+        ];
 
+        // Validasi form
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -76,5 +91,4 @@ class Mahasiswa extends CI_Controller
             redirect('mahasiswa');
         }
     }
-
 }

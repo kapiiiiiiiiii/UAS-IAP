@@ -84,7 +84,7 @@ if (isset($media['data']) && count($media['data']) >= 1) {
     <div class="jumbotron" id="home">
       <div class="container">
         <div class="text-center">
-          <img src="img/profile1.png" class="rounded-circle img-thumbnail">
+          <img src="img/khafi.jpg" class="rounded-circle img-thumbnail">
           <h1 class="display-4">Alkhafi Kurniawan</h1>
           <h3 class="lead">Lecturer | Programmer | Youtuber</h3>
         </div>
